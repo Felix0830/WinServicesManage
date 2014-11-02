@@ -12,7 +12,7 @@ namespace WinServiceManage
         static void Main(string[] args)
         {
             //TODO: 要兼容服务名和服务的显示名称，并且这个从配置文件读取（支持多个）
-            var serviceName = "SNMP Trap";
+            var serviceName = ConfigHelper.GetServiceName();
             bool isExistService;
             bool isEnable;
             WindowsServerManage.isServiceIsExisted(serviceName, out isExistService, out isEnable);
@@ -56,7 +56,7 @@ namespace WinServiceManage
 
             if (inputKey.Contains("n"))
             {
-                Console.WriteLine("退出");
+                Console.WriteLine("正在退出……");
                 Thread.Sleep(1000);
                 //退出程序
                 Environment.Exit(0);

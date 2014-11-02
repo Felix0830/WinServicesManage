@@ -11,23 +11,25 @@ namespace WinServiceManage
     public class WindowsServerManage
     {
         /// <summary>
-        /// 检查服务存在的存在性
+        /// 检查服务存在的存在性（可以是服务的显示名称或是运行名称）
         /// DisplayName 是服务的显示名称
+        /// ServiceName 是服务运行的名称
         /// </summary>
-        /// <param name=" NameService ">服务名</param>
+        /// <param name="serviceName">服务名</param>
         /// <returns>存在返回 true,否则返回 false;</returns>
-        public static void isServiceIsExisted(string NameService, out bool isExistService, out bool isEnable)
+        public static void isServiceIsExisted(string serviceName, out bool isExistService, out bool isEnable)
         {
             isExistService = false;
             isEnable = false;
             ServiceController[] services = ServiceController.GetServices();
 
-            foreach (ServiceController s in services)
+            foreach (ServiceController sc in services)
             {
-                if (s.DisplayName.ToLower().Contains(NameService.ToLower()))
+                if (sc.DisplayName.ToUpper().Contains(serviceName.ToUpper())
+                    || sc.ServiceName.ToUpper().Equals(serviceName.ToUpper()))
                 {
                     isExistService = true;
-                    if (s.Status == ServiceControllerStatus.Running)
+                    if (sc.Status == ServiceControllerStatus.Running)
                     {
                         isEnable = true;
                     }
@@ -40,6 +42,11 @@ namespace WinServiceManage
             }
         }
 
+        /// <summary>
+        /// 启动服务
+        /// </summary>
+        /// <param name="sName"></param>
+        /// <returns></returns>
         public static bool StartService(string sName)
         {
             try
