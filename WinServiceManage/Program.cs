@@ -42,6 +42,8 @@ namespace WinServiceManage
         {
             string inputKey = string.Empty;
             inputKey = Console.ReadLine().ToLower();
+
+            //因为单线程，所以do循环只有在输入y或n才会退出,否则一直循环
             do
             {
                 if (inputKey.Equals("y") || inputKey.Equals("n"))

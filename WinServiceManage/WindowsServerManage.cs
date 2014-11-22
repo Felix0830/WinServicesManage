@@ -32,13 +32,9 @@ namespace WinServiceManage
                     if (sc.Status == ServiceControllerStatus.Running)
                     {
                         isEnable = true;
-                    }
-                    else
-                    {
                         break;
                     }
                 }
-               
             }
         }
 
