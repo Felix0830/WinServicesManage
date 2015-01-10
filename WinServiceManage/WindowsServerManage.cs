@@ -17,7 +17,7 @@ namespace WinServiceManage
         /// </summary>
         /// <param name="serviceName">服务名</param>
         /// <returns>存在返回 true,否则返回 false;</returns>
-        public static void isServiceIsExisted(string serviceName, out bool isExistService, out bool isEnable)
+        public static void IsExistedService(string serviceName, out bool isExistService, out bool isEnable)
         {
             isExistService = false;
             isEnable = false;

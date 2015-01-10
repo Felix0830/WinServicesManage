@@ -11,31 +11,42 @@ namespace WinServiceManage
     {
         static void Main(string[] args)
         {
-            //TODO: 要兼容服务名和服务的显示名称，并且这个从配置文件读取（支持多个）
-            var serviceName = ConfigHelper.GetServiceName();
-            bool isExistService;
+            //TODO: 要兼容服务名和服务的显示名称，并且这个从配置文件读取（支持多个）     
+            var serviceNameArray = ConfigHelper.GetServiceName().Split('|');
+            int i = 0;
+            foreach (var item in serviceNameArray)
+            {
+                Console.WriteLine("---{0}、开始查找【{1}】服务！---",++i,item);
+                aa(item);
+                Console.WriteLine("----------------------\n\n");
+            }
+
+            Console.WriteLine("请按任意键退出！");
+            Console.ReadKey();
+        }
+
+        public static void aa(string serviceName)
+        {
             bool isEnable;
-            WindowsServerManage.isServiceIsExisted(serviceName, out isExistService, out isEnable);
+            bool isExistService;
+            WindowsServerManage.IsExistedService(serviceName, out isExistService, out isEnable);
             if (isExistService)
             {
-                Console.Write("服务存在");
+                Console.Write("{0}，服务存在，", serviceName);
                 if (isEnable)
                 {
-                    Console.WriteLine("，并已启动");
+                    Console.WriteLine("并已启动");
                 }
                 else
                 {
-                    Console.WriteLine("，但未启动，是否要启动（Y/N）");
+                    Console.WriteLine("但未启动！是否需要启动？（Y/N）");
                     IsStartService(serviceName);
                 }
             }
             else
             {
-                Console.WriteLine("没找到对应服务");
-            }
-
-            Console.WriteLine("请按任意键退出！");
-            Console.ReadKey();
+                Console.WriteLine("没找到对的{0}应服务！", serviceName);
+            }          
         }
 
         public static void IsStartService(string serviceName)
@@ -51,17 +62,18 @@ namespace WinServiceManage
                     break; //跳出循环
                 }
 
-                Console.WriteLine("输入的指令不正确！请输入 Y/N ");
+                Console.WriteLine("输入的指令不正确！！！请输入 Y/N ");
                 inputKey = Console.ReadLine().ToLower();
 
             } while (true);
 
             if (inputKey.Contains("n"))
             {
-                Console.WriteLine("正在退出……");
-                Thread.Sleep(1000);
-                //退出程序
-                Environment.Exit(0);
+                //Console.WriteLine("正在退出……");
+                //Thread.Sleep(1000);
+                ////退出程序
+                //Environment.Exit(0);
+                return;
             }
 
             //启动服务
