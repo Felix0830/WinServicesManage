@@ -34,7 +34,7 @@ namespace WinServiceManage
             {
                 Console.Write("{0}，服务存在，", serviceName);
                 if (isEnable)
-                {
+                { 
                     Console.WriteLine("并已启动");
                 }
                 else
