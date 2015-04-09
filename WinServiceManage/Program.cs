@@ -27,7 +27,7 @@ namespace WinServiceManage
 
         public static void aa(string serviceName)
         {
-            bool isEnable;
+            bool isEnable; 
             bool isExistService;
             WindowsServerManage.IsExistedService(serviceName, out isExistService, out isEnable);
             if (isExistService)
